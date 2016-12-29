@@ -3,10 +3,14 @@
 #include<conio.h>
 #include<windows.h>
 using namespace std;
-int i, j, inaltime = 15, latime = 30, poz1, ok = 1, poz2,Ifruct,Jfruct;
+int i, j, inaltime = 25, latime = 50, poz1, ok = 1, poz2,Ifruct,Jfruct;
+bool gameOver;
+enum directie { STOP, SUS, JOS, STANGA, DREAPTA };
+directie dir;
 void setari()
 {   
-
+	dir = STOP;
+	gameOver = false;
 	poz1 = 3;
 	poz2 = 3;
 }
@@ -40,6 +44,63 @@ void harta()
 			else cout << " ";
 		}
 		cout << endl;
+	}
+
+}
+
+void generare_fruct()
+{
+	Ifruct = rand() % 10;
+	Jfruct = rand() % 10;
+}
+
+void Miscare_sarpe()
+{
+	//while (gameOver != 1)
+
+	if (GetAsyncKeyState(0x57)) {
+		dir = SUS;
+		//break;
+	}
+	else if (GetAsyncKeyState(0x41)) { dir = STANGA; } //break; }
+	else if (GetAsyncKeyState(0x44)) { dir = DREAPTA; }//break; }
+	else if (GetAsyncKeyState(0x53)) { dir = JOS; }//break; }
+
+
+}
+
+void miscare()
+{
+	switch (dir)
+	{
+	case SUS:
+		poz1--;
+		break;
+	case JOS:
+		poz1++;
+		break;
+	case STANGA:
+		poz2--;
+		break;
+	case DREAPTA:
+		poz2++;
+		break;
+	default:
+		break;
+	}
+}
+
+void Colectare_fruct()
+{
+	if (poz1 == Ifruct && poz2 == Jfruct) {
+		Ifruct = rand() % 13;
+		Jfruct = rand() % 13;
+		if (Ifruct == 0 || Jfruct == 0)
+		{
+			Ifruct = rand() % 14;
+			Jfruct = rand() % 14;
+		}
+		cout << Ifruct << " " << Jfruct;
 	}
 
 }
@@ -116,7 +177,16 @@ void optiunea_jucatorului()
 			cout << ".";
 			Sleep(0700);
 			setari();
-			harta();
+			generare_fruct();
+			while (gameOver != 1) {
+
+				harta();
+				Sleep(0700);
+				Miscare_sarpe();
+				miscare();
+				Colectare_fruct();
+			}
+			
 
 		}
 		else if (GetAsyncKeyState(0x32))
@@ -178,7 +248,7 @@ void optiunea_jucatorului()
 
 int main()
 {   
-	
+
 	meniu();
 	optiunea_jucatorului();
 	cin.get();
