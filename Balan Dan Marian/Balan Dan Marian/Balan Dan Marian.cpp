@@ -3,15 +3,47 @@
 #include<conio.h>
 #include<windows.h>
 using namespace std;
-int i, j, inaltime, latime, poz1,ok=1, poz2;
-
+int i, j, inaltime = 15, latime = 30, poz1, ok = 1, poz2,Ifruct,Jfruct;
 void setari()
-{
-	inaltime = 15;
-	latime = 30;
+{   
+
 	poz1 = 3;
 	poz2 = 3;
 }
+
+void harta()
+{
+	system("cls");
+	Sleep(10);
+	for (i = 0; i < inaltime; i++)
+	{
+		for (j = 0; j < latime; j++)
+		{
+			if (i == 0 && j == 0) cout << char(201);//colt stanga sus
+
+			else if (i == 0 && j == latime - 1) cout << char(187);//colt dreapta sus
+
+			else if (i == inaltime - 1 && j == 0) cout << char(200);//colt stanga jos
+
+			else if (i == inaltime - 1 && j == latime - 1) cout << char(188);//colt dreapta jos
+
+			else if (i == 0 && j != 0) cout << char(205);//marginea superioara 
+
+			else if (j == 0 && i != 0 && i != inaltime - 1) cout << char(186);//marginea din stanga exceptand colturile
+
+			else if (j == latime - 1 && i != 0 && i != inaltime - 1) cout << char(186);//marginea din dreapta fara colturi -sus,jos
+
+			else if (i == inaltime - 1 && j != 0 && j != latime - 1) cout << char(205);//marginea de jos fara colturi 
+
+			else if (i == poz1 && j == poz2) cout << char(254);//capul sarpelui
+			else if (i == Ifruct && j == Jfruct) cout << "?";
+			else cout << " ";
+		}
+		cout << endl;
+	}
+
+}
+
 
 int matrice_meniu[31][57] =
 {   
@@ -47,6 +79,7 @@ int matrice_meniu[31][57] =
 	{ 0,0,1,0,0,1,1,0,0,1,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
 	{ 6,3,1,1,1,1,0,1,0,1,1,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
 };
+
 void meniu()
 {
 	for (int i = 0; i < 33; i++)
@@ -66,35 +99,77 @@ void meniu()
 	cout << "PRESS 1 , 2 , 3 OR 4 FOR YOUR OPTION!";
 }
 
-void harta()
+void optiunea_jucatorului()
 {
-	system("cls");
-	for (i = 0; i < inaltime; i++)
-	{
-		for (j = 0; j < latime; j++)
+	while (ok == 1)
+		if (GetAsyncKeyState(0x31))
 		{
-			if (i == 0 && j == 0) cout << char(201);//colt stanga sus
+			system("cls");
+			cout << endl;
+			cout << endl;
+			cout << "LOADING";
+			Sleep(0700);
+			cout << ".";
+			Sleep(0700);
+			cout << ".";
+			Sleep(0700);
+			cout << ".";
+			Sleep(0700);
+			setari();
+			harta();
 
-			else if (i == 0 && j == latime - 1) cout << char(187);//colt dreapta sus
-
-			else if (i == inaltime - 1 && j == 0) cout << char(200);//colt stanga jos
-
-			else if (i == inaltime - 1 && j == latime - 1) cout << char(188);//colt dreapta jos
-
-			else if (i == 0 && j != 0) cout << char(205);//marginea superioara 
-
-			else if (j == 0 && i != 0 && i != inaltime - 1) cout << char(186);//marginea din stanga exceptand colturile
-
-			else if (j == latime - 1 && i != 0 && i != inaltime - 1) cout << char(186);//marginea din dreapta fara colturi -sus,jos
-
-			else if (i == inaltime - 1 && j != 0 && j != latime - 1) cout << char(205);//marginea de jos fara colturi 
-
-			else if (i == poz1 && j == poz2) cout << char(254);//capul sarpelui
-			else cout << " ";
 		}
-		cout << endl;
-	}
+		else if (GetAsyncKeyState(0x32))
+		{
+			system("cls");
+			cout << endl;
+			cout << endl;
+			cout << "LOADING";
+			Sleep(0700);
+			cout << ".";
+			Sleep(0700);
+			cout << ".";
+			Sleep(0700);
+			cout << ".";
+			Sleep(0700);
+			system("cls");
+			cout << "ai ales sa joci cu computerul";
 
+		}
+		else if (GetAsyncKeyState(0x33))
+		{
+			system("cls");
+			cout << endl;
+			cout << endl;
+			cout << "LOADING";
+			Sleep(0700);
+			cout << ".";
+			Sleep(0700);
+			cout << ".";
+			Sleep(0700);
+			cout << ".";
+			Sleep(0700);
+			system("cls");
+			cout << "locul 1:" << endl;
+			cout << "locul 2:" << endl;
+			cout << "locul 3:" << endl;
+		}
+		else if (GetAsyncKeyState(0x34))
+		{
+			system("cls");
+			cout << endl;
+			cout << endl;
+			cout << "LOADING";
+			Sleep(0700);
+			cout << ".";
+			Sleep(0700);
+			cout << ".";
+			Sleep(0700);
+			cout << ".";
+			Sleep(0700);
+			system("cls");
+			cout << "Ai iesit din joc";
+		}
 }
 
 
@@ -103,7 +178,9 @@ void harta()
 
 int main()
 {   
+	
 	meniu();
+	optiunea_jucatorului();
 	cin.get();
 }
 
