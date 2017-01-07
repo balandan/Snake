@@ -1,3 +1,24 @@
 ﻿  Balan Dan Marian.cpp
-  Balan Dan Marian.vcxproj -> C:\Users\Dan\Documents\GitHub\Snake\Balan Dan Marian\Debug\Balan Dan Marian.exe
-  Balan Dan Marian.vcxproj -> C:\Users\Dan\Documents\GitHub\Snake\Balan Dan Marian\Debug\Balan Dan Marian.pdb (Full PDB)
+c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(13): error C3927: '->': trailing return type is not allowed after a non-function declarator
+c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(13): error C3484: syntax error: expected '->' before the return type
+c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(13): error C3613: missing return type after '->' ('int' assumed)
+c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(13): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(13): error C2146: syntax error: missing ';' before identifier 'x'
+c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(14): error C3927: '->': trailing return type is not allowed after a non-function declarator
+c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(14): error C3484: syntax error: expected '->' before the return type
+c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(14): error C3613: missing return type after '->' ('int' assumed)
+c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(14): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(14): error C2086: 'int pt': redefinition
+  c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(13): note: see declaration of 'pt'
+c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(14): error C2146: syntax error: missing ';' before identifier 'y'
+c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(15): error C2065: 'hWnd': undeclared identifier
+c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(15): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(15): error C2365: 'ClientToScreen': redefinition; previous definition was 'function'
+  c:\program files (x86)\windows kits\8.1\include\um\winuser.h(8952): note: see declaration of 'ClientToScreen'
+c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(16): error C2228: left of '.x' must have class/struct/union
+  c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(16): note: type is 'int'
+c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(16): error C2228: left of '.y' must have class/struct/union
+  c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(16): note: type is 'int'
+c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(16): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\dan\documents\github\snake\balan dan marian\balan dan marian\balan dan marian.cpp(16): error C2365: 'SetCursorPos': redefinition; previous definition was 'function'
+  c:\program files (x86)\windows kits\8.1\include\um\winuser.h(8845): note: see declaration of 'SetCursorPos'
