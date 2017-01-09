@@ -2,11 +2,12 @@
 #include<iostream>
 #include<conio.h>
 #include<windows.h>
+
 using namespace std;
 int i, j, inaltime = 25, latime = 50, poz1, ok = 1, poz2,Icap,Jcap,Ifruct,Jfruct,SCORE,SCORE2;
 int Icoada[100], Jcoada[100],I2coada[100],J2coada[100],top[3];
 int lungime_Coada,lungime_Coada2;
-bool gameOver,Sarpe2,activare,puncteX2;
+bool gameOver,Sarpe2,activare,puncteX2,player2,player1;
 enum directie { STOP, SUS, JOS, STANGA, DREAPTA };
 directie dir,dir_auto;
 
@@ -35,7 +36,6 @@ void harta()
 {   
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 263);
 	system("cls");
-	
 	for (i = 0; i < inaltime; i++)
 	{
 		for (j = 0; j < latime; j++)
@@ -56,23 +56,34 @@ void harta()
 
 			else if (i == inaltime - 1 && j != 0 && j != latime - 1) cout << char(205);//marginea de jos fara colturi 
 			else if (i == poz1 && j == poz2) cout <<char(254);//capul sarpelui
-			else if (i == Ifruct && j == Jfruct && i % 2 == 0 && j % 2 == 0)
+			else if (i == Ifruct && j == Jfruct && i % 2 == 0 && j % 2 == 0)// daca linia si coloana fructului sunt pare sa se genereze fruct special 
 			{
 				cout << "!";
 				puncteX2 = 1;
 			}                                                                  
 			else if (i == Ifruct && j == Jfruct) cout << "?";
 			else if (Sarpe2 == 1 && i == Icap && j == Jcap) cout << char(254);
-			else if(activare==1)
+			else if(activare==1)// in cazul in care utilizatorul apasa tasta 2 pentru a juca in modul "Player vs CO.";
 			{
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 265);
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 265);//coloram corpul primului sarpelui "automat" in albastru 
 				bool afisare_sarpe2 = false;
-				for (int k = 0; k < lungime_Coada2; k++)
+				for (int k = 0; k < lungime_Coada2 ; k++)
 				{
-					if (Icap == I2coada[k] && Jcap == J2coada[k]) gameOver = true;
+					if (Icap == I2coada[k] && Jcap == J2coada[k])
+					{
+						gameOver = true;
+						puncteX2 = 0;
+						player1 = 1;//daca sarpele nr 2 musca din coada playerul nr 1 castiga 
+					}
 					else if (Ifruct == I2coada[k] && Jfruct == J2coada[k]) generare_fruct();// sa nu mai genereze fructe pe corpul sarpelui
-					else if (poz1 == I2coada[k] && poz2 == J2coada[k]) gameOver = true;
-					else  if (I2coada[k] == i && J2coada[k] == j)
+					else if (poz1 == I2coada[k] && poz2 == J2coada[k])//atunci cand capul primului sarpe loveste coada celui de-al doilea
+					{   
+					   
+						gameOver = true;
+						player2 = 1;
+						puncteX2 = 0;
+					}
+					else  if (I2coada[k] == i && J2coada[k] == j)//afisare corp sarpe nr 2
 					{
 						cout << char(254);
 						afisare_sarpe2 = true;
@@ -80,13 +91,23 @@ void harta()
 
 				}
 				{   
-					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 260);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 260);//colorare sarpe nr 1
 					for (int k = 0; k < lungime_Coada; k++)
 					{
-						if (poz1 == Icoada[k] && poz2 == Jcoada[k]) gameOver = true;
-						else if (Ifruct == Icoada[k] && Jfruct == Jcoada[k]) generare_fruct();
-						else if (Icap == Icoada[k] && Jcap == Jcoada[k]) gameOver = true;
-						else  if (Icoada[k] == i && Jcoada[k] == j)
+						if (poz1 == Icoada[k] && poz2 == Jcoada[k]) // daca sarpele nr 1 musca din coada 
+						{
+							gameOver = true;
+							puncteX2 = 0;
+							player2 = 1;
+						}
+						else if (Ifruct == Icoada[k] && Jfruct == Jcoada[k]) generare_fruct();// sa nu se genereze fructe pe corpul sarpelui 1
+						else if (Icap == Icoada[k] && Jcap == Jcoada[k]) //atunci cand capul celui de-al doilea sarpe loveste coada primului
+						{
+                            gameOver = true;
+							player1 = 1;
+							puncteX2 = 0;
+						}
+						else  if (Icoada[k] == i && Jcoada[k] == j)//afisare corp sarpe nr 1
 						{
 							cout << char(254);
 							afisare_sarpe2 = true;
@@ -95,7 +116,7 @@ void harta()
 					}
 					if (!afisare_sarpe2)
 						cout << " ";
-					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 263);
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 263);//revenirea la culoarea alba pe fundal negru
 				}
 			}
 			else 
@@ -104,7 +125,11 @@ void harta()
 				bool afisare = false;
 				for (int k = 0; k < lungime_Coada; k++)
 				{
-					if (poz1 == Icoada[k] && poz2 == Jcoada[k]) gameOver = true;
+					if (poz1 == Icoada[k] && poz2 == Jcoada[k])
+					{   
+						puncteX2 = 0;
+						gameOver = true;
+					}
 					else if (Ifruct == Icoada[k] && Jfruct == Jcoada[k]) generare_fruct();
 					else  if (Icoada[k] == i && Jcoada[k] == j)
 					{
@@ -119,17 +144,31 @@ void harta()
 		}
 		cout << endl;
 	}
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 260);
 	cout << "SCORE:" << SCORE << endl;
-	cout << "SCORE2:" << SCORE2;
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 265);
+	if(activare==1)cout << "SCORE2:" << SCORE2;
+	if (player2 == 1)
+	{
+		player2 = 0;
+		cout << endl << "PLAYER 2 WINS !";
+	}
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 260);
+	if (player1 == 1)
+	{
+		player1 = 0;
+		cout << endl << "PLAYER 1 WINS !";
+	}
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 263);
 }
 
 void Miscare_sarpe()
 {
 
-	if (GetAsyncKeyState(0x57)) dir = SUS;
-	else if (GetAsyncKeyState(0x41))  dir = STANGA; 
-	else if (GetAsyncKeyState(0x44))  dir = DREAPTA; 
-	else if (GetAsyncKeyState(0x53))  dir = JOS; 
+	if (GetAsyncKeyState(0x57)) dir = SUS;//pentru tasta "w" directia sarpelui devine sus
+	else if (GetAsyncKeyState(0x41))  dir = STANGA;//pentru tasta "a" directia sarpelui devine stanga
+	else if (GetAsyncKeyState(0x44))  dir = DREAPTA; //pentru tasta "d" directia sarpelui devine dreapta
+	else if (GetAsyncKeyState(0x53))  dir = JOS; //pentru tasta "s" directia sarpelui devine jos
 
 
 }
@@ -167,8 +206,24 @@ void miscare()
 	default:
 		break;
 	}
-	if (poz1 == 0	 || poz2 == 0) gameOver = true; 
-	else if (poz1 == inaltime - 1 || poz2 == latime - 1) gameOver = true;
+	if (poz1 == 0 || poz2 == 0)//daca sarpele controlat de noi atinge marginea de sus sau cea din stanga
+	{
+		gameOver = true;
+		puncteX2 = 0;
+		if (activare == 1)//sa se afiseze mesajul doar in cazul in care jucam pe harta de 1 vs 1 
+		{
+			cout << endl << "PLAYER 2 WINS !";
+		}
+	}
+	else if (poz1 == inaltime - 1 || poz2 == latime - 1)//daca sarpele controlat de noi atinge marginea de jos sau marginea din dreapta
+	{
+		gameOver = true;
+		puncteX2 = 0;
+		if (activare == 1) // sa se afiseze mesajul doar in cazul in care jucam pe harta de 1 vs 1
+		{
+			cout << endl << "PLAYER 2 WINS !";
+		}
+	}
 }
 
 void Al_doilea_sarpe()
@@ -182,17 +237,26 @@ void Al_doilea_sarpe()
 		else if (Icap == Ifruct && Jcap < Jfruct && dir_auto == STANGA) dir_auto = JOS;
 		else if (Icap == Ifruct && Jcap < Jfruct) dir_auto = DREAPTA;
 		else if (Icap == Ifruct && Jcap == Jfruct)
-		{
-			SCORE2 = SCORE2 + 10;
-			lungime_Coada2++;
-			Ifruct = rand() % (inaltime - 2);
+		{   
+			if (puncteX2 == 1) // daca fructul este "!"
+			{
+				SCORE2 = SCORE2 + 20;
+				lungime_Coada2 = lungime_Coada2 + 2;
+				puncteX2 = 0; // modificam din nou valoarea la 0 pentru ca atunci cand dam restart la joc sa nu avem in punctex2 valoarea 1 (puteam sa pun in setari() punctex2=0; ca sa elimin acest pas)
+			}
+			else
+			{
+				SCORE2 = SCORE2 + 10;
+				lungime_Coada2++;
+			}
+			Ifruct = rand() % (inaltime - 2);//se genereaza alt fruct in momentul in care pozitia capului se suprapune cu pozitia fructului actual
 			Jfruct = rand() % (latime - 2);
-			if (Ifruct == 0 || Jfruct == 0)
+			if (Ifruct == 0 || Jfruct == 0)// in cazul in care fructele se genereaza in peretii cu 0
 			{
 				Ifruct = rand() % (inaltime - 3);
 				Jfruct = rand() % (latime - 3);
 			}
-		
+		   
 		}
 }
 
@@ -230,8 +294,18 @@ void Al_doilea_sarpe_miscare()
 	default:
 		break;
 	}
-	if (Icap == 0 || Jcap== 0) gameOver = true;
-	else if (Icap == inaltime - 1 || Jcap == latime - 1) gameOver = true;
+	if (Icap == 0 || Jcap == 0)
+	{
+		gameOver = true;
+		puncteX2 = 0;
+		cout << endl << "PLAYER 1 WINS !";
+	}
+	else if (Icap == inaltime - 1 || Jcap == latime - 1)
+	{
+		gameOver = true;
+		puncteX2 = 0;
+		cout << endl << "PLAYER 1 WINS !";
+	}
 }
 
 void Colectare_fruct()
@@ -265,11 +339,11 @@ void Colectare_fruct()
 int matrice_meniu[26][57] =
 {   
 	{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-	{ 0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,1,1,1,1,1,1,0,0,1,1,0,0,0,0,0,0,1,1,0,0,1,1,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0 },
-	{ 0,0,0,0,0,0,0,1,1,1,1,0,0,1,1,1,1,0,0,1,1,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0 },
-	{ 0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,1,1,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0 },
-	{ 0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,1,1,0,0,1,1,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0 },
-	{ 0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,1,1,1,1,1,1,0,0,1,1,0,0,0,0,0,0,1,1,0,0,1,1,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0 },
+	{ 0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,1,1,1,1,1,1,0,0,1,1,0,0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0 },
+	{ 0,0,0,0,0,0,0,1,1,1,1,0,0,1,1,1,1,0,0,1,1,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,1,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0 },
+	{ 0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,1,1,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0 },
+	{ 0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,1,1,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0 },
+	{ 0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,1,1,1,1,1,1,0,0,1,1,0,0,0,0,0,0,1,1,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0 },
 	{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
 	{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
 	{ 0,0,1,1,1,0,1,0,1,0,0,0,1,0,1,1,1,0,1,0,0,0,1,1,1,0,0,0,1,1,1,0,1,0,0,0,1,1,1,0,1,0,0,0,0,0,1,0,1,1,1,0,1,1,1,0,0 },
@@ -327,6 +401,7 @@ int matrice_Game_over[8][57] =
 
 void Afisare_Gameover()
 {
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 266);
 	for (i = 0; i < 8; i++)
 	{
 		for (j = 0; j < 57; j++)
@@ -359,7 +434,6 @@ void optiunea_jucatorului()
 			generare_fruct();
 			while (gameOver != 1) 
 		  {
-				//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 265);
 				harta();
 				Sleep(100);
 				Colectare_fruct();
@@ -392,6 +466,7 @@ void optiunea_jucatorului()
 		}
 		else if (GetAsyncKeyState(0x32))
 		{
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 263);
 			system("cls");
 			cout << endl;
 			cout << endl;
@@ -410,7 +485,7 @@ void optiunea_jucatorului()
 			while (gameOver != 1) {
 				
 				harta();
-			    Sleep(0700);
+			    Sleep(100);
 				Colectare_fruct();
 				Miscare_sarpe();
 				miscare();
@@ -427,7 +502,7 @@ void optiunea_jucatorului()
 
 		}
 		else if (GetAsyncKeyState(0x33))
-		{
+		{   
 			system("cls");
 			cout << endl;
 			cout << endl;
@@ -440,27 +515,13 @@ void optiunea_jucatorului()
 			cout << ".";
 			Sleep(0700);
 			system("cls");
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 262);
+			cout << endl;
 			cout << "locul 1:" <<top[0]<<endl;
 			cout << "locul 2:" <<top[1]<<endl;
 			cout << "locul 3:" <<top[2]<<endl;
 		}
-		else if (GetAsyncKeyState(0x34))
-		{
-			system("cls");
-			cout << endl;
-			cout << endl;
-			cout << "LOADING";
-			Sleep(0700);
-			cout << ".";
-			Sleep(0700);
-			cout << ".";
-			Sleep(0700);
-			cout << ".";
-			Sleep(0700);
-			system("cls");
-			cout << "Ai iesit din joc";
-			gameOver = 1;
-		}
+		
 }
 
 
