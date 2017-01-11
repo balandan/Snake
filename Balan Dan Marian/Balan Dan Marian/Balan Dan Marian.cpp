@@ -2,11 +2,11 @@
 #include<iostream>
 #include<conio.h>
 #include<windows.h>
-
+#include<MMSystem.h>
 using namespace std;
 int i, j, inaltime = 25, latime = 50, poz1, ok = 1, poz2,Icap,Jcap,Ifruct,Jfruct,SCORE,SCORE2;
 int Icoada[100], Jcoada[100],I2coada[100],J2coada[100],top[3];
-int lungime_Coada,lungime_Coada2;
+int lungime_Coada,lungime_Coada2,mina,duoplayer;
 bool gameOver,Sarpe2,activare,puncteX2,player2,player1;
 enum directie { STOP, SUS, JOS, STANGA, DREAPTA };
 directie dir,dir_auto;
@@ -19,6 +19,8 @@ void setari()
 	dir = STOP;
 	lungime_Coada = 0;
 	lungime_Coada2 = 0;
+	mina = 0;
+	duoplayer = 0;
 	gameOver = false;
 	poz1 = 6;// linia sarpelui controlat de player
 	poz2 = 3;//coloana sarpelui controlat de player
@@ -56,6 +58,11 @@ void harta()
 
 			else if (i == inaltime - 1 && j != 0 && j != latime - 1) cout << char(205);//marginea de jos fara colturi 
 			else if (i == poz1 && j == poz2) cout <<char(254);//capul sarpelui
+			else if (i == Ifruct && j == Jfruct && i % 2 == 1 && j % 2 == 1)
+			{
+				cout << "*";
+				mina = 1;
+			}
 			else if (i == Ifruct && j == Jfruct && i % 2 == 0 && j % 2 == 0)// daca linia si coloana fructului sunt pare sa se genereze fruct special 
 			{
 				cout << "!";
@@ -244,6 +251,12 @@ void Al_doilea_sarpe()
 				lungime_Coada2 = lungime_Coada2 + 2;
 				puncteX2 = 0; // modificam din nou valoarea la 0 pentru ca atunci cand dam restart la joc sa nu avem in punctex2 valoarea 1 (puteam sa pun in setari() punctex2=0; ca sa elimin acest pas)
 			}
+			else if (mina == 1)
+			{
+				if (SCORE > 0) SCORE = SCORE - 10;
+				if (lungime_Coada> 2) lungime_Coada = lungime_Coada - 1;
+				mina = 0;
+			}
 			else
 			{
 				SCORE2 = SCORE2 + 10;
@@ -318,6 +331,18 @@ void Colectare_fruct()
 			SCORE = SCORE + 20;
 			puncteX2 = 0;
 		}
+		else if (mina == 1 && duoplayer==1)
+		{
+			if (SCORE2 > 0) SCORE2 = SCORE2 - 10;
+			if (lungime_Coada2> 2) lungime_Coada2 = lungime_Coada2 - 1;
+			mina = 0;
+		}
+		else if (mina == 1)
+		{
+				if (SCORE > 0) SCORE = SCORE - 10;
+				if (lungime_Coada> 2) lungime_Coada = lungime_Coada - 1;
+				mina = 0;
+		}
 		else
 		{
 			lungime_Coada++;
@@ -370,6 +395,7 @@ int matrice_meniu[26][57] =
 
 void meniu()
 {
+	
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 258);
 	for (int i = 0; i < 26; i++)
 	{
@@ -383,6 +409,7 @@ void meniu()
 			else if (matrice_meniu[i][j] == 5)cout << char(51);
 		}
 		cout << endl;
+		PlaySound(L"song2", NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 	cout << "PRESS 1 , 2 , 3 FOR YOUR OPTION!";
 }
@@ -411,6 +438,7 @@ void Afisare_Gameover()
 		}
 		cout << endl;
 	}
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 263);
 }
 
 void optiunea_jucatorului()
@@ -433,7 +461,8 @@ void optiunea_jucatorului()
 			setari();
 			generare_fruct();
 			while (gameOver != 1) 
-		  {
+		  {     
+				
 				harta();
 				Sleep(100);
 				Colectare_fruct();
@@ -481,6 +510,7 @@ void optiunea_jucatorului()
 			setari();
 			generare_fruct();
 			activare = 1;
+			duoplayer = 1;
 			Sarpe2 = true;
 			while (gameOver != 1) {
 				
