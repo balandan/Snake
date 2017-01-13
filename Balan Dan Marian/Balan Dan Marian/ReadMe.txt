@@ -1,40 +1,10 @@
-========================================================================
-    CONSOLE APPLICATION : Balan Dan Marian Project Overview
-========================================================================
 
-AppWizard has created this Balan Dan Marian application for you.
+Acest proiect a fost realizat de catre : Balan Dan-Marian 
 
-This file contains a summary of what you will find in each of the files that
-make up your Balan Dan Marian application.
+Descrierea jocului:Proiectul este o replica a celebrului joc Snake.Scopul jocului este de a acumula cat mai multe puncte colectand bonusurile aflate pe harta.Daca sarpele se loveste de marginile hartii sau de propria coada sau de coada altui sarpe (duo player) atunci jocul se termina.
 
+Instructiuni de joc: In meniul principal putem alege optiunea dorita apasand tasetele 1 ,2 sau 3 iar sarpele este controlat de pe tastele w pentru directia sus , d pentru dreapta , s pentru jos si a pentru stanga.
 
-Balan Dan Marian.vcxproj
-    This is the main project file for VC++ projects generated using an Application Wizard.
-    It contains information about the version of Visual C++ that generated the file, and
-    information about the platforms, configurations, and project features selected with the
-    Application Wizard.
+Cerinte si specificatii: Jocul a fost realizat in Visual Studio 2015 si merge pe Windows 7 , Windows 10 pe 32 sau 64 de biti. 
 
-Balan Dan Marian.vcxproj.filters
-    This is the filters file for VC++ projects generated using an Application Wizard. 
-    It contains information about the association between the files in your project 
-    and the filters. This association is used in the IDE to show grouping of files with
-    similar extensions under a specific node (for e.g. ".cpp" files are associated with the
-    "Source Files" filter).
-
-Balan Dan Marian.cpp
-    This is the main application source file.
-
-/////////////////////////////////////////////////////////////////////////////
-Other standard files:
-
-StdAfx.h, StdAfx.cpp
-    These files are used to build a precompiled header (PCH) file
-    named Balan Dan Marian.pch and a precompiled types file named StdAfx.obj.
-
-/////////////////////////////////////////////////////////////////////////////
-Other notes:
-
-AppWizard uses "TODO:" comments to indicate parts of the source code you
-should add to or customize.
-
-/////////////////////////////////////////////////////////////////////////////
+Executabilul se afla in folderul Debug si se numeste Balan Dan Marian.

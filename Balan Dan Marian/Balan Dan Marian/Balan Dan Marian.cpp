@@ -11,6 +11,17 @@ bool gameOver,Sarpe2,activare,puncteX2,player2,player1;
 enum directie { STOP, SUS, JOS, STANGA, DREAPTA };
 directie dir,dir_auto;
 
+void clearscreen()
+{
+	HANDLE hOut;
+	COORD Position;
+
+	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	Position.X = 0;
+	Position.Y = 0;
+	SetConsoleCursorPosition(hOut, Position);
+}
 
 void setari()
 {
@@ -37,7 +48,7 @@ void generare_fruct()
 void harta()
 {   
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 263);
-	system("cls");
+	clearscreen();
 	for (i = 0; i < inaltime; i++)
 	{
 		for (j = 0; j < latime; j++)
